@@ -41,3 +41,30 @@ function getelement() {
 
 }
 getelement()
+
+
+let form = document.getElementById('form');
+let formtext = document.getElementById('formtext');
+let formfile = document.getElementById('formfile');
+let modalbtn = document.getElementById('modalbtn');
+let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNTczNzkzNTUtZDNjYi00NzY1LTgwMGEtNDZhOTU1NWJiOWQyIiwidG9rZW5fdHlwZSI6ImFjY2VzcyIsImlhdCI6MTcxMTgwMzY0NiwiZXhwIjoxNzQzMzM5NjQ2fQ.L1lw1S6rFDJ6OnWNm4vWzn1Q5-h_IEMXK3mLu12LUyg";
+
+modalbtn.addEventListener('click' , function(e){
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append('name_en' , formtext.value);
+    formData.append('image_src' , formfile.files[0]);
+    fetch("https://realauto.limsa.uz/api/categories" , {
+        method: 'POST',
+        headers:{
+            'AUTHORIZATION':`Bearer ${token}`
+        },
+        body: formData
+    }).then(res=>{
+        console.log("success");
+        form.reset();
+        getelement()
+    }).catch(err=>{
+        console.log('error')
+    })
+});
